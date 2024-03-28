@@ -19,7 +19,7 @@ export default function Header() {
     return(
         <>
         {isVisible && (
-            <div className="h-10 bg-black text-white flex justify-around fixed top-0 w-screen text-[20px] items-center font-semibold">
+            <div className="h-10 bg-black text-white flex justify-around fixed top-0 w-screen text-[20px] items-center font-semibold md:text-base">
                 <Link href = "/">Top</Link><Link href="/projects">Projects</Link><Link href="https://github.com/peektyer305">Github</Link><Link href="/contact">Contact</Link>
             </div>
         )}
