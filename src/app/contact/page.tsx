@@ -17,7 +17,7 @@ export default function Contact(){
       } = useForm<Inputs>();
       const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
     return (
-        <main className="mt-10 bg-black h-auto">
+        <main className="mt-10 bg-black h-screen">
             <div className="bg-contactBack z-10 bg-no-repeat bg-center text-white text-center">
                <div className="fadeIn"> <h1 className="text-[50px] font-semibold">Contact</h1>
                 <p className="text-base mt-10 font-bold">お問い合わせ、連絡ございましたら以下のフォームにご入力・送信お願いいたします。</p>

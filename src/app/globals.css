@@ -40,6 +40,22 @@ input:-webkit-autofill:active  {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #fff !important;
 }
-textarea{
+#message{
     resize: none;
 }
+#message::-webkit-scrollbar-track {
+    background: #f0f0f0; /* スクロールバーのトラック（背景部分）の色 */
+    border-radius: 8px; /* トラックの角の丸み */
+  }
+  #message::-webkit-scrollbar {
+    width: 12px;
+    cursor: pointer; 
+  }
+  #chat::-webkit-scrollbar-track {
+    background: #f0f0f0; /* スクロールバーのトラック（背景部分）の色 */
+    border-radius: 8px; /* トラックの角の丸み */
+  }
+  #chat::-webkit-scrollbar {
+    width: 8px;
+    cursor: pointer; 
+  }
