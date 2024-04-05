@@ -12,11 +12,12 @@ interface Message {
     createdAt: Timestamp;
 }
 export default function Chat(){
+   
     const openai = new OpenAI({
         apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
         dangerouslyAllowBrowser:true,
     })
-    const {selectedRoom} = useAppContext();
+    const {selectedRoom,selectedRoomName} = useAppContext();
     const [messages,setMessages] = useState<Message[]>([])
     useEffect(() =>{
         if(selectedRoom){
@@ -47,18 +48,25 @@ export default function Chat(){
             sender: "user",
             createdAt: serverTimestamp(),
         }
-        const roomDocRef = doc(db,"rooms","QygJHshKDKLbiXV31KCN");
+        const roomDocRef = doc(db,"rooms",selectedRoom!);
         const messageCollectionRef = collection(roomDocRef,"messages");
         await addDoc(messageCollectionRef,messageData)
         const textarea= document.getElementById("chat") as HTMLTextAreaElement;
         if(textarea!==null)textarea.value = "";
+        
+        const gptResponse= await openai.chat.completions.create({
+            messages:[{role:"user", content:inputMessage}],
+            model:"babbage-002",
+        });
+        //console.log(gptResponse);
+
     }
     return (
         <div className="text-white p-4 flex flex-col">
-            <h1>ROOM1</h1>
+            <h1>{selectedRoomName}</h1>
             <div className="flex-grow overflow-y-auto mb-4">
                 {messages.map((message,index) =>(
-                    <div key = {index}>
+                    <div key = {index} className="overflow-y-auto">
                     {(message.sender === "user") && (  
                     <div className="text-right">
                      <div className="bg-blue-500 inline-block rounded px-4 py-2 mb-2">
@@ -75,15 +83,15 @@ export default function Chat(){
                 
                     </div>
                 ))}
-                <div className="flex-shrink-0 absolute bottom-20 w-2/3">
+                <div className="flex-shrink-0 fixed bottom-10 w-2/3">
                     <textarea  id="chat" placeholder="Send a message" 
                     onChange={(e) => setInputMessage(e.target.value)}
                     className="py-2 px-2 bg-transparent border-2 rounded w-full focus:outline-none h-auto">
                            
                     </textarea>
-                 <button className="absolute inset-y-0 flex items-center right-4 h-auto"
+                 <button className="absolute bottom-10 inset-y-0 flex items-center right-4 h-auto"
                  onClick={sendMessage}>
-                    <BsSendFill />
+                    <BsSendFill  className="absolute top-7 right-5"/>
                  </button>
                 </div>
             </div>

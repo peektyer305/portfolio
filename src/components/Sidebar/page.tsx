@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import { CiLogout } from "react-icons/ci";
-import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore"; 
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, where } from "firebase/firestore"; 
 import { db } from "../../../firebase";
 import { useAppContext } from "@/app/chat/layout";
 import { getAuth, signOut } from "firebase/auth";
@@ -14,9 +14,10 @@ export interface Room{
     }
 export default function Sidebar(){
    
-    const { setSelectedRoom } = useAppContext()
+    const { setSelectedRoom,setSelectedRoomName } = useAppContext()
     const selectRoom = (room: Room) =>{
         setSelectedRoom(room.id);
+        setSelectedRoomName(room.name)
         //console.log(room.id);
     }
     const router = useRouter();
@@ -30,8 +31,20 @@ export default function Sidebar(){
         })
         .catch((error) => {
         alert("ログアウト中にエラーが発生しました．もう一度お試しください．") 
-});
-
+        });
+    
+    
+        }
+    const addNewRoom = async() =>{
+        const roomName = prompt("ルーム名を入力して下さい")
+        if(roomName){
+            const roomNameRef = collection(db,"rooms")
+            await addDoc(roomNameRef,{
+                name: roomName,
+                userId: userId,
+                createdAt: serverTimestamp(),
+            })
+        }
     }
     useEffect(() =>{
         if(user){
@@ -64,7 +77,7 @@ export default function Sidebar(){
     return (
         <div className="h-full overflow-y-auto px-5 flex-col bg-gray-600 text-white">
             <div className="flex-grow">
-                <div className="max-w-[200px] mx-auto cursor-pointer mt-2 flex items-center justify-center border border-white rounded-lg
+                <div onClick={addNewRoom} className="max-w-[200px] mx-auto cursor-pointer mt-2 flex items-center justify-center border border-white rounded-lg
                 hover:opacity-50">
                     <span className="text-[30px]">+</span>
                     <h2>New Chat</h2>
