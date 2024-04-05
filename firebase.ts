@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsJbOx5iY-88qWUJJetrlyWqcwha80ezw",
-  authDomain: "chatapp-f4ea8.firebaseapp.com",
-  projectId: "chatapp-f4ea8",
-  storageBucket: "chatapp-f4ea8.appspot.com",
-  messagingSenderId: "912056774535",
-  appId: "1:912056774535:web:21c5acefff166c000cad22"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN_KEY,
+  projectId: process.env.NEXT_PUBLIC_PROJECTID_KEY,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET_KEY,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID_KEY,
+  appId: process.env.NEXT_PUBLIC_APPID_KEY,
 };
 
 const app = initializeApp(firebaseConfig);

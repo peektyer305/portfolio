@@ -24,6 +24,7 @@ export default function Register(){
          console.log(user)
          if(user){
                 router.push("/chat/auth/login")
+                alert("登録に成功しました！")
          }
         })
         .catch((error) => {
@@ -61,7 +62,7 @@ export default function Register(){
                         }
                     })} />
                     {errors.password && <p className="text-red-400 font-bold mb-2 text-sm opacity-80">{errors.password.message}</p>}
-                        <button type="submit" className="w-[150px] border border-white font-semibold rounded-lg p-2 mt-5 hover:opacity-60 mb-2">新規登録</button>
+                        <button type="submit" className="focus:opacity-50 w-[150px] border border-white font-semibold rounded-lg p-2 mt-5 hover:opacity-60 mb-2">新規登録</button>
                         <p className="text-base font-normal mb-2">既にアカウントをお持ちですか？</p>
                         <Link href={"/chat/auth/login"}>ログインページへ</Link>
                     </form>

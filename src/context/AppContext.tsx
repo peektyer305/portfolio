@@ -28,7 +28,7 @@ export const AppContext = createContext<AppContexttype>(defaultContextdata);
 export function AppProvidder({children}: AppProviderProps){
         const [user,setUser] = useState<User|null>(null)
         const [userId,setUserId] = useState<string|null>(null)
-        const [selectedRoom,setSelectedRoom] = useState<string| null>(null)
+        const [selectedRoom,setSelectedRoom] = useState< string | null>(null)
 
         useEffect(() =>{
             const unsubscribe =  onAuthStateChanged(auth, (newUser) =>{

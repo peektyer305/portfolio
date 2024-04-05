@@ -4,19 +4,43 @@ import { CiLogout } from "react-icons/ci";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore"; 
 import { db } from "../../../firebase";
 import { useAppContext } from "@/app/chat/layout";
-export default function Sidebar(){
-    interface Room{
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation"; 
+
+export interface Room{
         id: string;
         name:string;
         createdAt:string;
     }
+export default function Sidebar(){
+   
+    const { setSelectedRoom } = useAppContext()
+    const selectRoom = (room: Room) =>{
+        setSelectedRoom(room.id);
+        //console.log(room.id);
+    }
+    const router = useRouter();
     const {user,userId} = useAppContext();
+    const logOut = () =>{
+        const auth = getAuth();
+        signOut(auth)
+        .then(() => {
+        router.push("/chat/auth/login") 
+        alert("ログアウトが成功しました．")
+        })
+        .catch((error) => {
+        alert("ログアウト中にエラーが発生しました．もう一度お試しください．") 
+});
+
+    }
     useEffect(() =>{
+        if(user){
         const fetchRooms = () =>{
         const roomCollectionRef = query(collection(db, "rooms"));
+
         const q = query(
             roomCollectionRef,
-            where("userId", "==", "XYnEIGuk9OgUG1sAirppvpzQIZS2"), 
+            where("userId", "==", userId), 
             orderBy("createdAt"))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const newrooms: Room[] = querySnapshot.docs.map((doc) =>({
@@ -25,7 +49,7 @@ export default function Sidebar(){
                 createdAt: doc.data().createdAt,
             }));
         setRooms(newrooms)
-        console.log(newrooms)
+        //console.log(newrooms)
         }); 
         //メモリリークを防ぐ
         return() =>{
@@ -33,7 +57,8 @@ export default function Sidebar(){
         }
             }
         fetchRooms();
-    },[]);
+    }
+    },[userId]);
     
     const [rooms,setRooms] = useState<Room[]>([]);
     return (
@@ -47,20 +72,16 @@ export default function Sidebar(){
                 <ul>
                     {rooms.map((room) =>(
                         
-                    <li key = {room.id} className="cursor-pointer text-center border-b p-4 hover:opacity-50">
+                    <li key = {room.id} onClick={() => selectRoom(room)} className="cursor-pointer text-center border-b p-4 hover:opacity-50">
                      {room.name}
                      </li>
                     ))}
                 </ul>
                 <div className="h-20 flex items-center justify-center absolute bottom-0 hover:opacity-50 cursor-pointer">
                 <CiLogout />
-                <span className="ml-2">LogOut</span>
+                <button className="ml-2" onClick={logOut}>LogOut</button>
                 </div>
             </div>
         </div>
     )
-}
-
-function fetchRooms() {
-    throw new Error("Function not implemented.");
 }

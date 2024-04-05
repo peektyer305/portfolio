@@ -20,6 +20,7 @@ export default function Login(){
         const user = userCredential.user;
         console.log(user)
             router.push("/chat")
+            alert("ログインに成功しました！")
                          })
         .catch((error) => {
         const errorCode = error.code;
@@ -56,7 +57,7 @@ export default function Login(){
                         }
                     })} />
                     {errors.password && <p className="text-red-400 font-bold mb-2 text-sm opacity-80">{errors.password.message}</p>}
-                        <button type="submit" className="w-[150px] border border-white font-semibold rounded-lg p-2 mt-5 hover:opacity-60 mb-2">ログイン</button>
+                        <button type="submit" className="w-[150px] border border-white font-semibold rounded-lg p-2 mt-5 hover:opacity-60 mb-2 focus:opacity-50">ログイン</button>
                         <p className="text-base font-normal mb-2">アカウントをお持ちでないですか？</p>
                         <Link href={"/chat/auth/register"}>新規登録ページへ</Link>
                     </form>
