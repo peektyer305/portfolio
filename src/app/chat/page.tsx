@@ -9,7 +9,7 @@ export default function ChatPage(){
         redirect("/chat/auth/login")
     }
     return(
-        <div className="mt-10 flex h-screen justify-start items-center">
+        <div className="mt-10 flex min-h-screen h-auto justify-start items-center">
             <div className="h-full flex w-screen">
                 <div className="w-1/5">
                     <Sidebar />
