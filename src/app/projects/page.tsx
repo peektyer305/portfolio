@@ -9,7 +9,7 @@ export default function Projects() {
     <main className="bg-black h-auto min-h-screen mt-10 text-white">
         <div className="bg-galaxy bg-repeat min-h-screen bg-center z-10 h-auto">
       <h1 className="text-[50px] text-center font-semibold fadeIn">Projects</h1>
-      <div id ="projectContainer" className="flex flex-row md:flex-col text-white text-background font-bold">
+      <div id ="projectContainer" className="flex flex-row md:flex-col text-white text-background font-bold mx-20 md:mx-10">
       <div className={projectContainerClass}>
         <Image src={"/chatbot.png"} alt="chatbotImage" className="mx-auto"
         width={500} height={500}/>
