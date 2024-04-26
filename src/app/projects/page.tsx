@@ -17,7 +17,7 @@ export default function Projects() {
         <p className={textBackgroundClass}>使用技術:OpenAI api,Next.js,firebase</p><br/>
         <p className={twMerge(textBackgroundClass,"text-wrap")}>chatGptを意識したチャットボットを作ってみました．</p><br/>
         <p className={textBackgroundClass}>OpenAI apiに可能性を感じたのでファインチューニングなどもっと深堀していきたい．</p><br/>
-        <Link className={textBackgroundClass} href = {"https://github.com/peektyer305/portfolio"}>ソースコード(Githubに遷移します)</Link>
+        <Link className={textBackgroundClass} href = {"https://github.com/peektyer305/aichat"}>ソースコード(Githubに遷移します)</Link>
       </div>
       <div className={projectContainerClass}>
         <Image src={"/blod.png"} alt="blogImage" className="mx-auto"
